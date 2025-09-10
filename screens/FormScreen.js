@@ -2,24 +2,58 @@ import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 
 export default function FormScreen({ navigation }) {
-  const [name, setName] = useState("");
-  const [age, setAge] = useState("");
-  const [course, setCourse] = useState("");
+  const [studentData, setStudentData] = useState({
+    student_id: '',
+    full_name: '',
+    course: '',
+    year_level: '',
+    date_registered: '',
+  });
+
+  const handleInputChange = (field, value) => {
+    setStudentData({ ...studentData, [field]: value });
+  };
 
   const handleSubmit = () => {
-    navigation.navigate("Confirmation", { name, age, course });
+    navigation.navigate("Confirmation", { studentData });
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Name:</Text>
-      <TextInput style={styles.input} value={name} onChangeText={setName} />
+      <Text style={styles.label}>Student ID:</Text>
+      <TextInput 
+        style={styles.input} 
+        value={studentData.student_id} 
+        onChangeText={(text) => handleInputChange('student_id', text)} 
+      />
 
-      <Text style={styles.label}>Age:</Text>
-      <TextInput style={styles.input} value={age} onChangeText={setAge} keyboardType="numeric" />
+      <Text style={styles.label}>Full Name:</Text>
+      <TextInput 
+        style={styles.input} 
+        value={studentData.full_name} 
+        onChangeText={(text) => handleInputChange('full_name', text)} 
+      />
 
       <Text style={styles.label}>Course:</Text>
-      <TextInput style={styles.input} value={course} onChangeText={setCourse} />
+      <TextInput 
+        style={styles.input} 
+        value={studentData.course} 
+        onChangeText={(text) => handleInputChange('course', text)} 
+      />
+
+      <Text style={styles.label}>Year Level:</Text>
+      <TextInput 
+        style={styles.input} 
+        value={studentData.year_level} 
+        onChangeText={(text) => handleInputChange('year_level', text)} 
+      />
+
+      <Text style={styles.label}>Date Registered:</Text>
+      <TextInput 
+        style={styles.input} 
+        value={studentData.date_registered} 
+        onChangeText={(text) => handleInputChange('date_registered', text)} 
+      />
 
       <Button title="Submit" onPress={handleSubmit} />
     </View>
